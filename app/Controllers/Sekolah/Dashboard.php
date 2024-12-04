@@ -176,7 +176,6 @@ class Dashboard extends BaseController
             if (!in_array($row[0], $existingNis)) {
                 $data = [
                     'id_sekolah' => session()->get('user')['sekolah']['id'],
-                    'id_status' => 1,
                     'nis' => $row[0],
                     'nama' => $row[1],
                     'jk' => $row[2],
