@@ -39,9 +39,9 @@ class Dashboard extends BaseController
         $mKelas = new Kelas();
 
         $user  = session()->get('user');
+        // if   
         $kelas = $mKelas->where('id_sekolah', $user['sekolah']['id'])->findAll();
         $siswa = $mSiswa->where('id_sekolah', $user['sekolah']['id'])->findAll();
-
         $tahun = $mSiswa->select('masuk')->where('id_sekolah', $user['sekolah']['id'])->distinct()->findAll();
 
         helper(['form']);

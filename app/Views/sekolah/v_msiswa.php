@@ -103,7 +103,7 @@
                                     <th>Orang Tua</th>
                                     <th>Masuk</th>
                                     <th>Keluar</th>
-                                    <th>Ijazah</th>
+                                    <th>File</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>

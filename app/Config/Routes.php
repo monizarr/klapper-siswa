@@ -41,6 +41,7 @@ $routes->group('sekolah', function ($routes) {
 
 
 $routes->group('admin', function ($routes) {
+    $routes->get('/', 'Admin\Dashboard::index');
     $routes->get('login', 'Auth::loginAdmin');
     $routes->post('login', 'Auth::StoreLoginAdmin');
     $routes->get('logout', 'Auth::adminLogout');

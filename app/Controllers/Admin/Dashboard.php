@@ -12,6 +12,10 @@ class Dashboard extends BaseController
 
     public function index()
     {
+        if (session()->get('user') == null) {
+            return redirect()->to('/admin/login');
+        }
+
         $data = [
             'title' => 'Dashboard',
             'content' => 'adminapp/v_index'
@@ -112,6 +116,7 @@ class Dashboard extends BaseController
         $searchValue = $this->request->getVar('search')['value'] ?? '';
         $angkatan = $this->request->getGet('angkatan'); // Ambil parameter angkatan dari request
         $namaSekolah = $this->request->getGet('nama_sekolah'); // Ambil parameter id_sekolah dari request
+        $orderColumn = $this->request->getVar('order')[0]['column'];
 
         // Query builder
         $builder = $model->builder();
@@ -131,12 +136,22 @@ class Dashboard extends BaseController
 
         // Filter pencarian jika ada
         if (!empty($searchValue)) {
-            $builder->like('nama', $searchValue);
+            $builder->like('siswa.nama', $searchValue);
         }
 
         // Hitung total record sebelum limit
         $totalRecords = $builder->countAllResults(false);
 
+        // order by
+        if ($orderColumn == 1) {
+            $builder->orderBy('nama',   $this->request->getVar('order')[0]['dir']);
+        } else if ($orderColumn == 2) {
+            $builder->orderBy('jk', $this->request->getVar('order')[0]['dir']);
+        } else if ($orderColumn == 3) {
+            $builder->orderBy('nama_sekolah', $this->request->getVar('order')[0]['dir']);
+        } else if ($orderColumn == 4) {
+            $builder->orderBy('masuk', $this->request->getVar('order')[0]['dir']);
+        }
 
         // Ambil data dengan limit dan offset
         $data = $builder->limit($length, $start)->get()->getResult();
