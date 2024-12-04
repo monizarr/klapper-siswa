@@ -10,11 +10,9 @@ class Home extends BaseController
         if (session()->get('user') == null) {
             return redirect()->to('/sekolah/login');
         }
-        $role = session()->get('user')['role'];
 
         if (session()->get('user') == null) {
-            return redirect()->to($role . '/login');
+            return redirect()->to('sekolah/login');
         }
-        return redirect()->to($role . '/dashboard');
     }
 }
