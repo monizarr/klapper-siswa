@@ -69,6 +69,14 @@
                                 <label class="form-label">File CSV</label>
                                 <input type="file" class="form-control" name="csv" required accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                             </div>
+                            <!-- option pemisah csv , atau ; -->
+                            <div class="mb-3">
+                                <label class="form-label">Pemisah CSV</label>
+                                <select class="form-select" name="delimiter" required>
+                                    <option value="," selected>Comma (,)</option>
+                                    <option value=";">Semicolon (;)</option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>

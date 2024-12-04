@@ -164,7 +164,22 @@ class Dashboard extends BaseController
         $siswa = new Siswa();
         $kelas = new Kelas();
         $file = $this->request->getFile('csv');
-        $csvData = array_map('str_getcsv', file($file));
+        // $csvData = array_map('str_getcsv', file($file));
+
+        $delimiter = $this->request->getPost('delimiter');
+        if ($delimiter == ',') {
+            $csvData = array_map(function ($v) {
+                return str_getcsv($v, ',');
+            }, file($file));
+        } else {
+            $csvData = array_map(function ($v) {
+                return str_getcsv($v, ';');
+            }, file($file));
+        }
+        // semicolon
+        // $csvData = array_map(function ($v) {
+        //     return str_getcsv($v, ';');
+        // }, file($file));
         $header = array_shift($csvData);
 
         // exisiting data
