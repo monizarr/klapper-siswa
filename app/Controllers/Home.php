@@ -14,5 +14,7 @@ class Home extends BaseController
         if (session()->get('user') == null) {
             return redirect()->to('sekolah/login');
         }
+
+        return redirect()->to('/sekolah/dashboard');
     }
 }
