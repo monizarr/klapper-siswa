@@ -21,7 +21,8 @@ class Siswa extends Seeder
                 'orang_tua' => 'Ayah 1',
                 'masuk' => 2010,
                 'keluar' => null,
-                'bukti' => null,
+                'bukti_masuk' => null,
+                'bukti_keluar' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -37,7 +38,8 @@ class Siswa extends Seeder
                 'orang_tua' => 'Ibu 2',
                 'masuk' => 2010,
                 'keluar' => null,
-                'bukti' => null,
+                'bukti_masuk' => null,
+                'bukti_keluar' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -53,7 +55,8 @@ class Siswa extends Seeder
                 'orang_tua' => 'Ayah 3',
                 'masuk' => 2010,
                 'keluar' => null,
-                'bukti' => null,
+                'bukti_masuk' => null,
+                'bukti_keluar' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ],
@@ -69,7 +72,8 @@ class Siswa extends Seeder
                 'orang_tua' => 'Ibu 4',
                 'masuk' => 2010,
                 'keluar' => null,
-                'bukti' => null,
+                'bukti_masuk' => null,
+                'bukti_keluar' => null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]

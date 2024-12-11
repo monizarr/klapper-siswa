@@ -109,6 +109,10 @@
                                 <label class="form-label">Akreditasi</label>
                                 <input type="text" class="form-control" name="akreditasi" value="<?= $sekolah['akreditasi'] ?>" readonly>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">NPSN</label>
+                                <input type="text" class="form-control" name="npsn" value="<?= $sekolah['npsn'] ?>" readonly>
+                            </div>
                         </form>
                     </div>
                 </div>

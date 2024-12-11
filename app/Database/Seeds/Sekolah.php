@@ -18,6 +18,7 @@ class Sekolah extends Seeder
                 'email' => 'sdn1@gmail.com',
                 'kepsek' => 'Pak SDN 1',
                 'akreditasi' => 'A',
+                'npsn' => '12345678',
                 'created_at' => date('Y-m-d H:i:s')
             ],
             [
@@ -29,6 +30,7 @@ class Sekolah extends Seeder
                 'email' => 'sdn2@gmail.com',
                 'kepsek' => 'Pak SDN 2',
                 'akreditasi' => 'B',
+                'npsn' => '12345679',
                 'created_at' => date('Y-m-d H:i:s')
             ],
         ];

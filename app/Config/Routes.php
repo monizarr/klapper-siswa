@@ -17,8 +17,10 @@ $routes->group('siswa', function ($routes) {
 $routes->group('kelas', function ($routes) {
     $routes->get('/', 'Kelas::index');
     $routes->post('add', 'Kelas::add');
+    $routes->post('update/(:num)', 'Kelas::update/$1');
+    $routes->post('delete/(:num)', 'Kelas::delete/$1');
 });
-//grup route admin
+
 $routes->group('sekolah', function ($routes) {
     $routes->get('/', 'Sekolah\Dashboard::index');
     $routes->get('login', 'Auth::index');
@@ -38,7 +40,6 @@ $routes->group('sekolah', function ($routes) {
     $routes->get('profil', 'Sekolah\Dashboard::profil');
     $routes->get('get-csv', 'Sekolah\Dashboard::getCsv');
 });
-
 
 $routes->group('admin', function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');

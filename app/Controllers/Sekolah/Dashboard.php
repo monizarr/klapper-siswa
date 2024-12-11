@@ -115,6 +115,9 @@ class Dashboard extends BaseController
         $siswa = new Siswa();
         $kelas = new Kelas();
 
+        $file = $this->request->getFile('bukti_masuk');
+        $namaFile = $file->getName();
+        $file->move(ROOTPATH . 'public/uploads/surat-masuk');
         $data = [
             'id_sekolah' => $this->request->getPost('id_sekolah'),
             'id_status' => $this->request->getPost('status_masuk'),
@@ -125,6 +128,7 @@ class Dashboard extends BaseController
             'tgl_lahir' => $this->request->getPost('tgl_lahir'),
             'orang_tua' => $this->request->getPost('ortu'),
             'masuk' => $this->request->getPost('masuk'),
+            'bukti_masuk' => $namaFile,
             'keluar' => $this->request->getPost('keluar'),
             'created_at' => date('Y-m-d H:i:s')
         ];
@@ -176,10 +180,7 @@ class Dashboard extends BaseController
                 return str_getcsv($v, ';');
             }, file($file));
         }
-        // semicolon
-        // $csvData = array_map(function ($v) {
-        //     return str_getcsv($v, ';');
-        // }, file($file));
+
         $header = array_shift($csvData);
 
         // exisiting data

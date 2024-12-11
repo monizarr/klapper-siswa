@@ -123,7 +123,7 @@
 <!-- Modal tambah siswa -->
 <div class="modal modal-blur fade" id="modal-siswa" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="<?= site_url('/sekolah/add-siswa') ?>" method="post" class="modal-content">
+        <form action="<?= site_url('/sekolah/add-siswa') ?>" method="post" class="modal-content" enctype="multipart/form-data">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Siswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +133,7 @@
                 <!-- status masuk -->
                 <div class="mb-3">
                     <label class="form-label w-100">Status Masuk</label>
-                    <select class="form-select" name="status_masuk" required>
+                    <select class="form-select" name="status_masuk" id="status_masuk" required>
                         <option value="ppdb" selected>PPDB</option>
                         <option value="pindahan">Pindahan</option>
                     </select>
@@ -176,6 +176,10 @@
                         <div class="mb-3">
                             <label class="form-label">Tahun Masuk</label>
                             <input type="number" min="1900" max="2099" step="1" value="<?php echo date('Y'); ?>" name="masuk" class="form-control" required>
+                        </div>
+                        <div class="mb-3" id="surat_pindah" style="display: none;">
+                            <label class="form-label w-100">Surat Pindah</label>
+                            <input type="file" class="form-control" name="bukti_masuk" required>
                         </div>
                     </div>
                 </div>
@@ -259,7 +263,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label class="form-label">Status</label>
+                                            <label class="form-label">Status Masuk</label>
                                             <select class="form-select" name="status_masuk">
                                                 <option value="ppdb" <?= $s['status_masuk'] == 'ppdb' ? 'selected' : '' ?>>PPDB</option>
                                                 <option value="pindahan" <?= $s['status_masuk'] == 'pindahan' ? 'selected' : '' ?>>Pindahan</option>
@@ -284,29 +288,48 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> Status Keluar</label>
+                                            <select class="form-select" name="status_keluar">
+                                                <option value="lulus" <?= $s['status_keluar'] == 'lulus' ? 'selected' : '' ?>>Lulus</option>
+                                                <option value="pindah" <?= $s['status_keluar'] == 'pindah' ? 'selected' : '' ?>>Pindah</option>
+                                                <option value="do" <?= $s['status_keluar'] == 'do' ? 'selected' : '' ?>>Putus Sekolah</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <?php if ($s['keluar'] != null) : ?>
+                                <?php if ($s['bukti_masuk'] != null) : ?>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label"> Status Keluar</label>
-                                                    <select class="form-select" name="status_keluar">
-                                                        <option value="lulus" <?= $s['status_keluar'] == 'lulus' ? 'selected' : '' ?>>Lulus</option>
-                                                        <option value="pindah" <?= $s['status_keluar'] == 'pindah' ? 'selected' : '' ?>>Pindah</option>
-                                                        <option value="do" <?= $s['status_keluar'] == 'do' ? 'selected' : '' ?>>Putus Sekolah</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <!-- preview image -->
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label w-100">Bukti</label>
+                                                    <label class="form-label w-100">Surat Penerimaan Siswa</label>
                                                     <!-- image/pdf -->
-                                                    <?php if (pathinfo($s['bukti'], PATHINFO_EXTENSION) == 'pdf') : ?>
-                                                        <embed src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti']) ?>" type="application/pdf" width="100%" height="600px" />
+                                                    <?php if (pathinfo($s['bukti_masuk'], PATHINFO_EXTENSION) == 'pdf') : ?>
+                                                        <embed src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti_masuk']) ?>" type="application/pdf" width="100%" height="600px" />
                                                     <?php else : ?>
-                                                        <img src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti']) ?>" class="img-fluid" alt="bukti" />
+                                                        <img src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti_masuk']) ?>" class="img-fluid" alt="bukti" />
+                                                    <?php endif; ?>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($s['keluar'] != null) : ?>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <!-- preview image -->
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100">Surat Alumni</label>
+                                                    <!-- image/pdf -->
+                                                    <?php if (pathinfo($s['bukti_keluar'], PATHINFO_EXTENSION) == 'pdf') : ?>
+                                                        <embed src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti_keluar']) ?>" type="application/pdf" width="100%" height="600px" />
+                                                    <?php else : ?>
+                                                        <img src="<?= base_url(UPLOAD_PATH . '/' . $s['bukti_keluar']) ?>" class="img-fluid" alt="bukti" />
                                                     <?php endif; ?>
 
                                                 </div>
@@ -345,7 +368,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label class="form-label w-100">Ijazah</label>
-                                            <input type="file" class="form-control" name="bukti">
+                                            <input type="file" class="form-control" name="bukti_keluar">
                                         </div>
                                     </div>
                                     <!-- submit -->
@@ -387,7 +410,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label class="form-label w-100">Surat Pindah</label>
-                                            <input type="file" class="form-control" name="bukti">
+                                            <input type="file" class="form-control" name="bukti_keluar">
                                         </div>
                                     </div>
                                     <!-- submit -->
@@ -411,7 +434,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label class="form-label w-100">Surat Keterangan Putus Sekolah</label>
-                                            <input type="file" class="form-control" name="bukti">
+                                            <input type="file" class="form-control" name="bukti_keluar">
                                         </div>
                                     </div>
                                     <!-- submit -->
@@ -470,7 +493,6 @@
                     const targetDiv = document.querySelector(`#tabs-profile-${siswaId}`);
 
                     console.log(data);
-                    // console.log(data[data.length - 1].kelas);
 
                     const kelasPlus = parseInt(data[data.length - 1]['kelas']) + 1;
                     const kelasTerakhir = parseInt(data[data.length - 1]['kelas']) + 1;
@@ -478,7 +500,6 @@
                     const isLulus = data[data.length - 1]['bukti'] != null && data[data.length - 1]['status_keluar'] == 'lulus';
                     const isPindah = data[data.length - 1]['bukti'] != null && data[data.length - 1]['status_keluar'] == 'pindah';
                     const isDo = data[data.length - 1]['bukti'] != null && data[data.length - 1]['status_keluar'] == 'do';
-
 
                     if (Array.isArray(data) && data.length > 0) {
                         targetDiv.innerHTML = `
@@ -536,21 +557,44 @@
                                 </div>
                             </form>
 
-                            <hr/>
+                            <hr />
                             <h4>Riwayat Kelas</h4>
                             <table class="table table-bordered table-striped mt-2">
                                 <thead>
                                     <tr>
                                         <th>Kelas</th>
                                         <th>Tahun Ajaran</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     ${data.map((item, index) => `
-                                        <tr>
-                                            <td>${item.kelas}</td>
-                                            <td>${item.ta}</td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="kelas-${item.id}" id="kelas-${item.id}" value="${item.kelas}" placeholder="Kelas">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="ta-${item.id}" id="ta-${item.id}" value="${item.ta}" placeholder="Tahun Ajaran">
+                                        </td>
+                                        <td>
+                                            <button 
+                                                class="btn btn-primary" 
+                                                onclick="updateRow(${item.id})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon m-0 icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                    <path d="M16 5l3 3" />
+                                                </svg>
+                                            </button>
+                                            <button 
+                                                class="btn btn-neutral" 
+                                                onclick="deleteRow(${item.id})">
+                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon m-0 icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
                                     `).join('')}
                                 </tbody>
                             </table>
@@ -559,11 +603,75 @@
                     } else {
                         targetDiv.innerHTML = '<p class="mt-4">Data tidak ditemukan.</p>';
                     }
+
                 })
                 .catch(error => {
                     const targetDiv = document.querySelector(`#tabs-profile-${siswaId}`);
                     targetDiv.innerHTML = `<p>Terjadi kesalahan: ${error.message}</p>`;
                 });
+        });
+    });
+
+    function updateRow(id) {
+        const kelas = document.getElementById(`kelas-${id}`).value;
+        const ta = document.getElementById(`ta-${id}`).value;
+
+        console.log(kelas, ta);
+
+        // Kirim data ke server menggunakan fetch API
+        fetch(`<?= site_url('/kelas/update/') ?>${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    kelas,
+                    ta,
+                }),
+            })
+            .then((response) => {
+                console.log(response);
+                if (response.ok) {
+                    alert('Data berhasil diperbarui');
+                } else {
+                    alert('Terjadi kesalahan saat memperbarui data');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat memperbarui data');
+            });
+    }
+
+    function deleteRow(id) {
+        // Kirim data ke server menggunakan fetch API
+        fetch(`<?= site_url('/kelas/delete/') ?>${id}`, {
+                method: 'POST',
+            })
+            .then((response) => {
+                console.log(response);
+                if (response.ok) {
+                    alert('Data berhasil dihapus');
+                    // Hapus baris dari tabel
+                    document.getElementById(`kelas-${id}`).closest('tr').remove();
+                } else {
+                    alert('Terjadi kesalahan saat menghapus data');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat menghapus data');
+            });
+    }
+
+    // ketika #status_masuk == 'pindahan' maka tampilkan form surat pindah
+    $(document).ready(function() {
+        $('#status_masuk').change(function() {
+            if ($(this).val() == 'pindahan') {
+                $('#surat_pindah').show();
+            } else {
+                $('#surat_pindah').hide();
+            }
         });
     });
 

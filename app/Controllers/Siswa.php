@@ -40,8 +40,7 @@ class Siswa extends BaseController
     public function getKelasSiswa($id_siswa)
     {
         $mKelas = new Kelas();
-        // $kelas = $mKelas->where('id_siswa', $id_siswa)->findAll();
-        // join with siswa 
+        $kelas = $mKelas->select('kelas.*, siswa.nama as nama_siswa');
         $kelas = $mKelas->join('siswa', 'siswa.id = kelas.id_siswa')->where('id_siswa', $id_siswa)->findAll();
 
         $response = [
@@ -81,14 +80,14 @@ class Siswa extends BaseController
         // } else {
 
         $id = $this->request->getPost('id');
-        $file = $this->request->getFile('bukti');
+        $file = $this->request->getFile('bukti_keluar');
         $namaFile = $file->getName();
         // $namaFile = $file->getRandomName();
-        $file->move(ROOTPATH . 'public/uploads/file');
+        $file->move(ROOTPATH . 'public/uploads/surat-keluar');
 
         $data = [
             'keluar' => date('Y'),
-            'bukti' => $namaFile,
+            'bukti_keluar' => $namaFile,
             'status_keluar' => 'lulus',
             'updated_at' => date('Y-m-d H:i:s'),
         ];
@@ -110,13 +109,13 @@ class Siswa extends BaseController
     public function uploadSrtPindah()
     {
         $id = $this->request->getPost('id');
-        $file = $this->request->getFile('bukti');
+        $file = $this->request->getFile('bukti_keluar');
         $namaFile = $file->getName();
-        $file->move(ROOTPATH . 'public/uploads/file');
+        $file->move(ROOTPATH . 'public/uploads/surat-keluar');
 
         $data = [
             'keluar' => date('Y'),
-            'bukti' => $namaFile,
+            'bukti_keluar' => $namaFile,
             'status_keluar' => 'pindah',
             'updated_at' => date('Y-m-d H:i:s'),
         ];
@@ -132,16 +131,17 @@ class Siswa extends BaseController
             return redirect()->to('/sekolah/siswa');
         }
     }
+
     public function uploadSrtKeluar()
     {
         $id = $this->request->getPost('id');
-        $file = $this->request->getFile('bukti');
+        $file = $this->request->getFile('bukti_keluar');
         $namaFile = $file->getName();
-        $file->move(ROOTPATH . 'public/uploads/file');
+        $file->move(ROOTPATH . 'public/uploads/surat-keluar');
 
         $data = [
             'keluar' => date('Y'),
-            'bukti' => $namaFile,
+            'bukti_keluar' => $namaFile,
             'status_keluar' => 'pindah',
             'updated_at' => date('Y-m-d H:i:s'),
         ];

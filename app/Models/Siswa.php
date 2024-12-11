@@ -25,7 +25,8 @@ class Siswa extends Model
         'orang_tua',
         'masuk',
         'keluar',
-        'bukti',
+        'bukti_masuk',
+        'bukti_keluar',
         'created_at',
         'updated_at'
     ];

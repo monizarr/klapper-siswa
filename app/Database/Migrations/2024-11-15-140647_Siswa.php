@@ -67,7 +67,12 @@ class Siswa extends Migration
                 'unsigned' => true,
                 'null' => true
             ],
-            'bukti' => [
+            'bukti_keluar' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
+            ],
+            'bukti_masuk' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true

@@ -21,6 +21,7 @@ class Sekolah extends Model
         'telp',
         'email',
         'kepsek',
+        'npsn',
         'akreditasi',
         'created_at',
         'updated_at',

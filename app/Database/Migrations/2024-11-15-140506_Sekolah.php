@@ -50,6 +50,10 @@ class Sekolah extends Migration
                 'constraint' => ['A', 'B', 'C', 'Tidak Terakreditasi'],
                 'default' => 'Tidak Terakreditasi'
             ],
+            'npsn' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true
