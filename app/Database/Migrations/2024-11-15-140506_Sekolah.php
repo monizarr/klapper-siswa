@@ -54,6 +54,10 @@ class Sekolah extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'status' => [
+                'type' => 'ENUM',
+                'constraint' => ['a', 'n'],
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true

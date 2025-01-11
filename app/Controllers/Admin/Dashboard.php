@@ -238,10 +238,27 @@ class Dashboard extends BaseController
 
     public function deleteSekolah($id)
     {
-        $mSekolah = new Sekolah();
-        $mSekolah->delete($id);
 
-        session()->setFlashdata('success', 'Data sekolah berhasil dihapus');
+        $mSekolah = new Sekolah();
+        $sttNow = $mSekolah->find($id)['status'];
+
+        $data = [];
+
+        if ($sttNow == 'n') {
+            $data = [
+                'status' => 'a',
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        } else {
+            $data = [
+                'status' => 'n',
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        }
+
+        $mSekolah->update($id, $data);
+
+        session()->setFlashdata('success', 'Data sekolah berhasil diperbarui');
         return redirect()->to('/admin/sekolah');
     }
 

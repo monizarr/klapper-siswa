@@ -29,7 +29,7 @@ class Auth extends BaseController
         $sekolahModel = new Sekolah();
         $user = $sekolahModel->where('username', $username)->first();
 
-        if ($user) {
+        if ($user['status'] == 'a') {
             if (password_verify($password, $user['password'])) {
                 $data = [
                     'id' => $user['id'],
@@ -37,19 +37,17 @@ class Auth extends BaseController
                     'isLoggedIn' => true,
                     'sekolah' => $user
                 ];
-
                 session()->set('user', $data);
-
                 return redirect()->to('/sekolah/dashboard');
             }
+        } else {
+            return redirect()->to('/sekolah/login')->withInput()->with('error', 'Status sekolah tidak aktif');
         }
         return redirect()->to('/sekolah/login')->withInput()->with('error', 'Login failed');
     }
 
     public function loginAdmin()
     {
-
-        // check session
         if (session()->get('isLoggedIn')) {
             return redirect()->to('/admin/dashboard');
         }

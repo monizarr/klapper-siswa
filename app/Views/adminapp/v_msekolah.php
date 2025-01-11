@@ -249,15 +249,15 @@
         <div class="modal-content">
             <form id="deleteForm" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-confirm-delete-label">Hapus Siswa</h5>
+                    <h5 class="modal-title" id="modal-confirm-delete-label">Perbarui Status Sekolah</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Anda akan menghapus data siswa <strong id="nisText"></strong></p>
+                    <p>Anda akan mengubah status data <strong id="nisText"></strong></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link link-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Hapus</button>
+                    <button type="submit" class="btn btn-danger">Ubah</button>
                 </div>
             </form>
         </div>
@@ -307,8 +307,13 @@
                 {
                     "data": "id",
                     "render": function(data, type, row) {
+                        const status = row.status == 'a' ? 'Aktif' : 'Non-aktif';
+                        const btnColor = row.status == 'a' ? 'btn-danger' : 'btn-primary-outline';
+
                         return `<a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-sekolah-edit-${row.id}">Edit</a>
-                        <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete" data-id="${data}" data-nis="${row.nis}" data-nama="${row.nama}">Hapus</a>`;
+                        <a href="#" class="btn btn-sm ${btnColor}" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete" data-id="${data}" data-nis="${row.nis}" data-nama="${row.nama}">
+                            ${status == 'Aktif' ? 'Non-aktifkan' : 'Aktifkan'}
+                        </a>`;
 
                     }
                 }
